@@ -1,5 +1,5 @@
-import Category from '../model/Category';
-import ICreateCategoryDTO from '../dtos/ICreateCategoryDTO';
+import Category from '../../model/Category';
+import ICreateCategoryDTO from '../../dtos/ICreateCategoryDTO';
 
 interface ICategoriesRepository {
     findByName(name: string): Category;

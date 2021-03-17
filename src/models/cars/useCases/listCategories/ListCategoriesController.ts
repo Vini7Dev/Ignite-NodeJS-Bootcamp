@@ -8,7 +8,7 @@ class listCategoriesController {
         this.listCategoriesUseCase = listCategoriesUseCase;
     }
 
-    public hanlde(request: Request, response: Response) {
+    public hanlde(request: Request, response: Response): Response {
         const categories = this.listCategoriesUseCase.execute();
 
         return response.json({ categories });

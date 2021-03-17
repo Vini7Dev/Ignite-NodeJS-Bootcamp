@@ -1,6 +1,6 @@
 import Category from '../model/Category';
 import ICreateCategoryDTO from '../dtos/ICreateCategoryDTO';
-import ICategoriesRepository from './ICategoriesRepository';
+import ICategoriesRepository from './implementations/ICategoriesRepository';
 
 class CategoriesRepository implements ICategoriesRepository {
     private static INSTANCE: CategoriesRepository;
