@@ -34,6 +34,7 @@ class ImportCategoryUseCase {
                     importedCategories.push({ name, description });
                 })
                 .on('end', () => {
+                    fs.promises.unlink(file.path);
                     resolve(importedCategories);
                 })
                 .on('error', error => {
