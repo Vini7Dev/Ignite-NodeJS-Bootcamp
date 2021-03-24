@@ -4,5 +4,10 @@
     "port": 5432,
     "username": "postgres",
     "password": "postgres",
-    "database": "rentx"
+    "database": "rentx",
+    "entities": ["./src/models/**/entities/*.ts"],
+    "migrations": ["./src/database/migrations/*.ts"],
+    "cli": {
+        "migrationsDir": "./src/database/migrations"
+    }
 }

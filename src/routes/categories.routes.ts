@@ -15,7 +15,7 @@ categoriesRoutes.get('/', (request, response) => {
 });
 
 categoriesRoutes.post('/', (req, res) => {
-    return createCategoryController.handle(req, res);
+    return createCategoryController().handle(req, res);
 });
 
 categoriesRoutes.post('/import', upload.single('file'), (request, response) => {
