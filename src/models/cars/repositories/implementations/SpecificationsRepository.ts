@@ -1,49 +1,37 @@
+import { getRepository, Repository } from 'typeorm';
 import ICreateSpecificationsDTO from '../../dtos/ICreateSpecificationsDTO';
 import Specification from '../../entities/Specification';
 import ISpecificationsRepository from '../ISpecificationsRepository';
 
 class SpecificationsRepository implements ISpecificationsRepository {
-    private static INSTANCE: SpecificationsRepository;
+    private repository: Repository<Specification>;
 
-    private specifications: Specification[];
-
-    private constructor() {
-        this.specifications = [];
+    constructor() {
+        this.repository = getRepository(Specification);
     }
 
-    public static getInstance(): SpecificationsRepository {
-        if (!SpecificationsRepository.INSTANCE) {
-            SpecificationsRepository.INSTANCE = new SpecificationsRepository();
-        }
-
-        return SpecificationsRepository.INSTANCE;
-    }
-
-    public findByName(name: string): Specification {
-        const findedSpecification = this.specifications.find(
-            specification => specification.name === name,
-        );
+    public async findByName(name: string): Promise<Specification> {
+        const findedSpecification = await this.repository.findOne({ name });
 
         return findedSpecification;
     }
 
-    public list(): Specification[] {
-        return this.specifications;
+    public async list(): Promise<Specification[]> {
+        const specifications = await this.repository.find();
+
+        return specifications;
     }
 
-    public create({
+    public async create({
         name,
         description,
-    }: ICreateSpecificationsDTO): Specification {
-        const specification = new Specification();
-
-        Object.assign(specification, {
+    }: ICreateSpecificationsDTO): Promise<Specification> {
+        const specification = this.repository.create({
             name,
             description,
-            created_at: new Date(),
         });
 
-        this.specifications.push(specification);
+        await this.repository.save(specification);
 
         return specification;
     }
