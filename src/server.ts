@@ -1,7 +1,7 @@
-import './database';
-import 'reflect-metadata';
 import express from 'express';
 import swaggerUi from 'swagger-ui-express';
+import './database';
+import './shared/container';
 import mainRoutes from './routes';
 import swaggerFile from './swagger.json';
 
