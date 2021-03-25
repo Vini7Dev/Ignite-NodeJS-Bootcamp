@@ -3,6 +3,7 @@ import { hash } from 'bcrypt';
 import ICreateUserDTO from '../../dtos/ICreateUserDTO';
 import User from '../../entities/User';
 import IUsersRepository from '../../repositories/IUsersRepository';
+import AppError from '../../../../errors/AppError';
 
 @injectable()
 class CreateUserUseCase {
@@ -20,7 +21,7 @@ class CreateUserUseCase {
         const userWithSameEmail = await this.usersRepository.findByEmail(email);
 
         if (userWithSameEmail) {
-            throw new Error('user email already exits.');
+            throw new AppError('user email already exits.');
         }
 
         const passwordHash = await hash(password, 8);

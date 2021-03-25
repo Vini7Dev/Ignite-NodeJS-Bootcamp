@@ -28,14 +28,6 @@ class UsersRepository implements IUsersRepository {
         email,
         driver_license,
     }: ICreateUserDTO): Promise<User> {
-        const userWithSameEmail = await this.repository.findOne({
-            email,
-        });
-
-        if (userWithSameEmail) {
-            throw new Error('email already exits.');
-        }
-
         const createdUser = this.repository.create({
             name,
             password,
