@@ -19,7 +19,7 @@ class UpdateUserAvatarController {
             avatar_file,
         });
 
-        return response.status(200).json({ user });
+        return response.status(200).json(user);
     }
 }
 

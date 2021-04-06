@@ -11,7 +11,7 @@ class listCategoriesController {
 
         const categories = await listCategoriesUseCase.execute();
 
-        return response.json({ categories });
+        return response.json(categories);
     }
 }
 

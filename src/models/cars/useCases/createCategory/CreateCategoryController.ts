@@ -16,7 +16,7 @@ class CreateCategoryController {
             description,
         });
 
-        return response.status(201).json({ category });
+        return response.status(201).json(category);
     }
 }
 

@@ -18,7 +18,7 @@ class CreateSpecificationController {
             description,
         });
 
-        return response.status(201).json({ specification });
+        return response.status(201).json(specification);
     }
 }
 
