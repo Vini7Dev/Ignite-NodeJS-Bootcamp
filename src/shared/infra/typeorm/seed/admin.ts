@@ -13,6 +13,8 @@ const create = async () => {
         VALUES ('${id}', 'admin', 'admin@rentx.com.br', '${password}', true, 'now()', 'AAA-ZZZZ')
         `,
     );
+
+    await connection.close();
 };
 
 create().then(() => console.log('User admin created!'));

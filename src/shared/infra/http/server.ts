@@ -9,7 +9,7 @@ import '../../container';
 import mainRoutes from './routes';
 import swaggerFile from '../../../swagger.json';
 
-createConnection();
+createConnection('localhost');
 
 const app = express();
 
