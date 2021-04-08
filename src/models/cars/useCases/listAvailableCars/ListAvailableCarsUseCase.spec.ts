@@ -52,8 +52,6 @@ describe('ListCars', () => {
             name: 'Car 1',
         });
 
-        console.log(cars);
-
         expect(cars).toEqual([car1]);
     });
 
