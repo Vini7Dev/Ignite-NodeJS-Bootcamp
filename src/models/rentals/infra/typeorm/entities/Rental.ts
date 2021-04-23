@@ -25,7 +25,7 @@ class Rental {
     public end_date: Date;
 
     @Column('timestamp')
-    public expect_return_date: Date;
+    public expected_return_date: Date;
 
     @Column('numeric')
     public total: number;
