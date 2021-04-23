@@ -7,6 +7,8 @@ import IUsersRepository from '@models/accounts/repositories/IUsersRepository';
 import UsersRepository from '@models/accounts/infra/typeorm/repositories/UsersRepository';
 import ICarsRepository from '@models/cars/repositories/ICarsRepository';
 import CarsRepository from '@models/cars/infra/typeorm/repositories/CarsRepository';
+import ICarImagesRepository from '@models/cars/repositories/ICarImagesRepository';
+import CarImagesRepository from '@models/cars/infra/typeorm/repositories/CarImagesRepository';
 
 container.registerSingleton<ICategoriesRepository>(
     'CategoriesRepository',
@@ -24,3 +26,8 @@ container.registerSingleton<IUsersRepository>(
 );
 
 container.registerSingleton<ICarsRepository>('CarsRepository', CarsRepository);
+
+container.registerSingleton<ICarImagesRepository>(
+    'CarImagesRepository',
+    CarImagesRepository,
+);
