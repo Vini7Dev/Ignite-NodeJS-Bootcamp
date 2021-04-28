@@ -4,11 +4,14 @@ import IRentalsRepository from '@models/rentals/repositories/IRentalsRepository'
 import AppError from '@shared/errors/AppError';
 import IDateProvider from '@shared/container/providers/DateProvider/IDateProvider';
 import DayJsProvider from '@shared/container/providers/DateProvider/implementations/DayjsProvider';
+import ICarsRepository from '@models/cars/repositories/ICarsRepository';
+import CarsRepositoryInMemory from '@models/cars/repositories/in-memory/CarsRepositoryInMemory';
 import CreateRentalUseCase from './CreateRentalUseCase';
 
 let createRentalUseCase: CreateRentalUseCase;
 let rentalsRepository: IRentalsRepository;
 let dateProvider: IDateProvider;
+let carsRepository: ICarsRepository;
 
 describe('CreateRental', () => {
     const returnDate24Hours = dayjs().add(1, 'day').toDate();
@@ -16,9 +19,11 @@ describe('CreateRental', () => {
     beforeEach(() => {
         rentalsRepository = new RentalsRepositoryInMemory();
         dateProvider = new DayJsProvider();
+        carsRepository = new CarsRepositoryInMemory();
         createRentalUseCase = new CreateRentalUseCase(
             rentalsRepository,
             dateProvider,
+            carsRepository,
         );
     });
 
