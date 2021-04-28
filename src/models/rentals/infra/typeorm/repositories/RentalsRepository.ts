@@ -39,11 +39,17 @@ class RentalsRepository implements IRentalsRepository {
     }
 
     public async create({
+        id,
+        end_date,
+        total,
         car_id,
         user_id,
         expected_return_date,
     }: ICreateRentalDTO): Promise<Rental> {
         const createdRental = this.repository.create({
+            id,
+            end_date,
+            total,
             car_id,
             user_id,
             expected_return_date,

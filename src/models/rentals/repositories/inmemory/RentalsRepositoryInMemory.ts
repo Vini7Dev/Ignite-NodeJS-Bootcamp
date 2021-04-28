@@ -32,6 +32,9 @@ class RentalsRepositoryInMemory implements IRentalsRepository {
     }
 
     public async create({
+        id,
+        end_date,
+        total,
         car_id,
         user_id,
         expected_return_date,
@@ -39,6 +42,9 @@ class RentalsRepositoryInMemory implements IRentalsRepository {
         const rental = new Rental();
 
         Object.assign(rental, {
+            id,
+            end_date,
+            total,
             car_id,
             user_id,
             expected_return_date,

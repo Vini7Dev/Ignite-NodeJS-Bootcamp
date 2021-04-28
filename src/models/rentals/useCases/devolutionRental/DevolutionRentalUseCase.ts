@@ -7,7 +7,6 @@ import Rental from '@models/rentals/infra/typeorm/entities/Rental';
 
 interface IRequest {
     id: string;
-    user_id: string;
 }
 
 @injectable()
@@ -21,7 +20,7 @@ class DevolutionRentalUseCase {
         private dateProvider: IDateProvider,
     ) {}
 
-    public async execute({ id, user_id }: IRequest): Promise<Rental> {
+    public async execute({ id }: IRequest): Promise<Rental> {
         const minimum_daily = 1;
         const rental = await this.rentalsRepository.findById(id);
 
