@@ -1,16 +1,16 @@
-import request from 'supertest';
 import { Connection } from 'typeorm';
 import { hash } from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
-
+import request from 'supertest';
 import app from '@shared/infra/http/app';
 import createConnection from '@shared/infra/typeorm';
 
 let connection: Connection;
 
-describe('CreateCategory Controller', () => {
+describe('ListCategories Controller', () => {
     beforeAll(async () => {
         connection = await createConnection();
+
         await connection.runMigrations();
 
         const id = uuidv4();
@@ -26,7 +26,7 @@ describe('CreateCategory Controller', () => {
         await connection.close();
     });
 
-    it('should be able to create a new category', async () => {
+    it('shoud be able to list all categories', async () => {
         const responseToken = await request(app).post('/sessions').send({
             email: 'admin@rentx.com.br',
             password: 'admin',
@@ -34,7 +34,7 @@ describe('CreateCategory Controller', () => {
 
         const { token } = responseToken.body;
 
-        const response = await request(app)
+        await request(app)
             .post('/categories')
             .send({
                 name: 'Example Name',
@@ -44,28 +44,10 @@ describe('CreateCategory Controller', () => {
                 Authorization: `Bearer ${token}`,
             });
 
-        expect(response.status).toEqual(201);
-        expect(response.body).toHaveProperty('id');
-    });
+        const responseListCategories = await request(app).get('/categories');
 
-    it('should not be able to create a new category with same name', async () => {
-        const responseToken = await request(app).post('/sessions').send({
-            email: 'admin@rentx.com.br',
-            password: 'admin',
-        });
-
-        const { token } = responseToken.body;
-
-        const responseError = await request(app)
-            .post('/categories')
-            .send({
-                name: 'Example Name',
-                describe: 'Example Description',
-            })
-            .set({
-                Authorization: `Bearer ${token}`,
-            });
-
-        expect(responseError.status).toEqual(400);
+        expect(responseListCategories.status).toEqual(200);
+        expect(responseListCategories.body.length).toEqual(1);
+        expect(responseListCategories.body[0]).toHaveProperty('id');
     });
 });
