@@ -60,6 +60,6 @@ describe('CreateCarSpecification', () => {
                 car_id: 'invalid-id',
                 specifications_id: [specification.id],
             }),
-        ).rejects.toBeInstanceOf(AppError);
+        ).rejects.toEqual(new AppError('car does not extis.'));
     });
 });

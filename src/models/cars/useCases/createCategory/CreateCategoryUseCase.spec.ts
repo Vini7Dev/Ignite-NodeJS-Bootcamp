@@ -33,6 +33,6 @@ describe('CreateCategory', () => {
                 name: 'Category Already Exits',
                 description: 'Category Description',
             }),
-        ).rejects.toBeInstanceOf(AppError);
+        ).rejects.toEqual(new AppError('category already exists.'));
     });
 });

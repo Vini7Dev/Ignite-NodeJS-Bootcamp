@@ -47,7 +47,7 @@ describe('CreateCar', () => {
                 brand: 'Example Brand',
                 category_id: 'Example-Category-ID',
             }),
-        ).rejects.toBeInstanceOf(AppError);
+        ).rejects.toEqual(new AppError('car already exits.'));
     });
 
     it('shoud be able to create a new car with available true by default', async () => {
