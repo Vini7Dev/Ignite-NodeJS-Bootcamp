@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { verify } from 'jsonwebtoken';
 import UsersRepository from '@models/accounts/infra/typeorm/repositories/UsersRepository';
 import AppError from '@shared/errors/AppError';
+import auth from '@config/auth';
 
 interface IPayload {
     sub: string;
@@ -21,10 +22,9 @@ const ensureAuthenticated = async (
     const [, token] = bearerToken.split(' ');
 
     try {
-        const { sub: user_id } = verify(
-            token,
-            '53267135b3e867e1c80c9ed5e9556a85',
-        ) as IPayload;
+        const { secret } = auth.token;
+
+        const { sub: user_id } = verify(token, secret) as IPayload;
 
         const usersRepository = new UsersRepository();
 

@@ -2,6 +2,9 @@ import { inject, injectable } from 'tsyringe';
 import { sign } from 'jsonwebtoken';
 import { compare } from 'bcrypt';
 import AppError from '@shared/errors/AppError';
+import IUsersTokensRepository from '@models/accounts/repositories/IUsersTokensRepository';
+import auth from '@config/auth';
+import IDateProvider from '@shared/container/providers/DateProvider/IDateProvider';
 import IUsersRepository from '../../repositories/IUsersRepository';
 
 interface IRequest {
@@ -15,6 +18,7 @@ interface IResponse {
         email: string;
     };
     token: string;
+    refresh_token: string;
 }
 
 @injectable()
@@ -22,6 +26,12 @@ class AuthenticateUserUseCase {
     constructor(
         @inject('UsersRepository')
         private usersRepository: IUsersRepository,
+
+        @inject('UsersTokensRepository')
+        private usersTokensRepository: IUsersTokensRepository,
+
+        @inject('DateProvider')
+        private dateProvider: IDateProvider,
     ) {}
 
     public async execute({ email, password }: IRequest): Promise<IResponse> {
@@ -37,9 +47,22 @@ class AuthenticateUserUseCase {
             throw new AppError('email or password incorrect.');
         }
 
-        const token = sign({}, '53267135b3e867e1c80c9ed5e9556a85', {
+        const token = sign({}, auth.token.secret, {
             subject: findedUser.id,
-            expiresIn: '1d',
+            expiresIn: auth.token.expiresIn,
+        });
+
+        const refresh_token = sign({ email }, auth.refresh_token.secret, {
+            subject: findedUser.id,
+            expiresIn: auth.refresh_token.expiresIn,
+        });
+
+        await this.usersTokensRepository.create({
+            user_id: findedUser.id,
+            refresh_token,
+            expires_date: this.dateProvider.addDays(
+                auth.refresh_token.expiresDays,
+            ),
         });
 
         return {
@@ -48,6 +71,7 @@ class AuthenticateUserUseCase {
                 email: findedUser.email,
             },
             token,
+            refresh_token,
         };
     }
 }
