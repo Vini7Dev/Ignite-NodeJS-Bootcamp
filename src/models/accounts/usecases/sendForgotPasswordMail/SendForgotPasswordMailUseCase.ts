@@ -1,3 +1,4 @@
+import { resolve } from 'path';
 import { inject, injectable } from 'tsyringe';
 import { v4 as uuidv4 } from 'uuid';
 import AppError from '@shared/errors/AppError';
@@ -38,10 +39,25 @@ class SendForgotPasswordMailUseCase {
             expires_date,
         });
 
+        const templatePath = resolve(
+            __dirname,
+            '..',
+            '..',
+            'views',
+            'emails',
+            'forgotPassword.hbs',
+        );
+
+        const variables = {
+            name: user.name,
+            link: `${process.env.FORGOT_MAIL_URL}${token}`,
+        };
+
         await this.mailProvider.sendMail(
             email,
             'Recuperação de Senha',
-            `Segue o link da recuperação de senha: ${token}`,
+            variables,
+            templatePath,
         );
     }
 }
