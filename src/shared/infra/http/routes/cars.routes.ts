@@ -4,7 +4,7 @@ import CreateCarController from '@models/cars/useCases/createCar/CreateCarContro
 import CreateCarSpecificationController from '@models/cars/useCases/createCarSpecification/CreateCarSpecificationController';
 import ListAvailableCarsController from '@models/cars/useCases/listAvailableCars/ListAvailableCarsController';
 import UploadCarImagesController from '@models/cars/useCases/uploadCarImages/UploadCarImagesController';
-import uploadConfig from '@config/updload';
+import uploadConfig from '@config/upload';
 import ensureAdmin from '../middlewares/ensureAdmin';
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 
@@ -15,7 +15,7 @@ const listAvailableCarsController = new ListAvailableCarsController();
 const createCarSpecificationController = new CreateCarSpecificationController();
 const uploadCarImagesController = new UploadCarImagesController();
 
-const uploadCarImage = multer(uploadConfig.upload('./tmp/cars'));
+const uploadCarImage = multer(uploadConfig);
 
 carsRoutes.post(
     '/',

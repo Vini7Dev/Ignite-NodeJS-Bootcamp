@@ -10,7 +10,7 @@ interface IRequest {
 class UploadCarImagesUseCase {
     constructor(
         @inject('CarImagesRepository')
-        private carImagesRepository: ICarImagesRepository,
+        private carImagesRepository: ICarImagesRepository, // @inject('StorageProvider') // private storageProvider: IStorageProvider,
     ) {}
 
     public async execute({ car_id, images_name }: IRequest): Promise<void> {
@@ -19,6 +19,8 @@ class UploadCarImagesUseCase {
                 car_id,
                 image_name,
             });
+
+            // await this.storageProvider.save(image_name, 'cars');
         });
     }
 }
