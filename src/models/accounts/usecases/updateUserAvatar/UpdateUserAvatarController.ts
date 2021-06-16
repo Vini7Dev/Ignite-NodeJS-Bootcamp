@@ -9,8 +9,6 @@ class UpdateUserAvatarController {
     ): Promise<Response> {
         const { id: user_id } = request.user;
 
-        console.log(request.file);
-
         const avatar_file = request.file.filename;
 
         const updateUserAvatarUseCase = container.resolve(
