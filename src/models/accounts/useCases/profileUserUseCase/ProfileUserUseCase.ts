@@ -1,9 +1,9 @@
 import IUserResponseDTO from '@models/accounts/dtos/IUserResponseDTO';
-import User from '@models/accounts/infra/typeorm/entities/User';
 import UserMap from '@models/accounts/mapper/UserMap';
 import IUsersRepository from '@models/accounts/repositories/IUsersRepository';
-import { inject } from 'tsyringe';
+import { inject, injectable } from 'tsyringe';
 
+@injectable()
 class ProfileUserUseCase {
     constructor(
         @inject('UsersRepository')
