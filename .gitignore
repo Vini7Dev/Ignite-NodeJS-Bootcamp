@@ -1,4 +1,8 @@
 *.pem
+tmp/*
+!tmp/.gitkeep
+dist
+ormconfig.json
 
 # Logs
 logs
