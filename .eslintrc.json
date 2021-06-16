@@ -35,8 +35,7 @@
         "init-declarations": "off",
         "camelcase": "off",
         "no-useless-constructor": "off",
-        "import/prefer-default-export": "off",
-        "import/no-unresolved": "off"
+        "import/prefer-default-export": "off"
 	  },
 	  "settings": {
 	    "import/resolver": {
