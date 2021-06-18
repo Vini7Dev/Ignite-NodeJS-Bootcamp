@@ -13,9 +13,8 @@ class SendForgotPasswordMailController {
             SendForgotPasswordMailUseCase,
         );
 
-        const forgotPasswordMailReponse = await sendForgotPasswordMailUseCase.execute(
-            email,
-        );
+        const forgotPasswordMailReponse =
+            await sendForgotPasswordMailUseCase.execute(email);
 
         return response.status(200).json(forgotPasswordMailReponse);
     }

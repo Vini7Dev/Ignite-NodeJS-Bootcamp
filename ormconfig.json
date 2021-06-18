@@ -5,9 +5,9 @@
     "username": "postgres",
     "password": "postgres",
     "database": "rentx",
-    "entities": ["./dist/models/**/infra/typeorm/entities/*.ts"],
-    "migrations": ["./dist/shared/infra/typeorm/migrations/*.ts"],
+    "entities": ["./src/models/**/infra/typeorm/entities/*.ts"],
+    "migrations": ["./src/shared/infra/typeorm/migrations/*.ts"],
     "cli": {
-        "migrationsDir": "./dist/shared/infra/typeorm/migrations"
+        "migrationsDir": "./src/shared/infra/typeorm/migrations"
     }
 }
