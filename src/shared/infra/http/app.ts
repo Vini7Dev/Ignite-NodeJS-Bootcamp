@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import 'dotenv/config';
 import 'express-async-errors';
 import express, { NextFunction, Request, Response } from 'express';
+import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 import AppError from '@shared/errors/AppError';
 import upload from '@config/upload';
@@ -11,11 +12,13 @@ import '../../container';
 import mainRoutes from './routes';
 import swaggerFile from '../../../swagger.json';
 
-createConnection('localhost');
+createConnection();
 
 const app = express();
 
 app.use(express.json());
+
+app.use(cors());
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
