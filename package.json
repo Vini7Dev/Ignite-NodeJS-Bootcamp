@@ -5,6 +5,8 @@
   "author": "Vinícius Gabriel <68403363+Vinicius7Dev@users.noreply.github.com>",
   "license": "MIT",
   "dependencies": {
+    "@sentry/node": "^6.7.1",
+    "@sentry/tracing": "^6.7.1",
     "@types/mime": "^2.0.3",
     "aws-sdk": "^2.929.0",
     "bcrypt": "^5.0.1",
